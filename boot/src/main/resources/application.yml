@@ -1,0 +1,52 @@
+# ===================================================================
+# Spring Boot configuration.
+# ANBCore
+# ===================================================================
+server:
+  port: 8080
+
+info:
+  project:
+    version: #project.version#
+spring:
+  profiles:
+    active: dev
+  #Artemis JMS
+  artemis:
+    mode: embedded
+    embedded:
+      enabled: true
+      persistent: true
+    concurrency: 25
+  mongodb:
+    embedded:
+      storage:
+        database-dir: ./database/
+  data:
+    mongodb:
+      auto-index-creation: false
+
+
+
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+
+# actuator
+# ===================================================================
+management:
+
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+
+# ===================================================================
+# queues
+# ===================================================================
+queue:
+  decode: queue.decode
+  compare: queue.compare

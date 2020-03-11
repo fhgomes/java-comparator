@@ -1,0 +1,9 @@
+  version: '3.4'
+
+  services:
+    java-comparator:
+      image: fernandosgomes/java-comparator
+      ports:
+        - 32808:8080
+      environment:
+        - "SPRING_PROFILES_ACTIVE=dev"
