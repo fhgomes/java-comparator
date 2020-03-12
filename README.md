@@ -74,3 +74,7 @@ Maybe you should take a look here https://github.com/fhgomes/java-comparator/tre
 
 This version use JMS and start process when the second side is received.
 The result is saved in database.
+
+# Travis
+
+[![Build Status](https://travis-ci.com/fhgomes/java-comparator.svg?branch=master)](https://travis-ci.com/fhgomes/java-comparator)
