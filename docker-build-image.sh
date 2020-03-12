@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t anb/anb-java-back .
+docker build -t fernandosgomes/java-comparator .
