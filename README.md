@@ -20,23 +20,37 @@ Its an option to provide another Spring Profile that can turn it off and redirec
 
 # How to Build and RUN
 
-## Build
+## Build Jar
 
     mvnw clean install -DskipTests
 
 It will create a Jar file in ./boot/target
 
-## RUN
+## RUN directly
 
 In /boot/target
 
 java -jar boot-1.0.0-SNAPSHOT.jar
 
+## RUN in Docker
+
+There are some sh files to make it easier.
+
+Run image build:
+    
+    sh docker-build-image.sh
+    
+Run container with compose
+
+    sh docker-run-compose.sh
+    
+It will run with exposed port 8080
+
 # Run tests
 
 I Decided to split the unit and integrations, because the integrations maybe become slow
 
-## Run without Integration
+## Run tests without Integration
 
 The default profile is disabling the integration tests
 
@@ -54,3 +68,9 @@ or just
 
     mvnw test -Ptest_with_integration
     
+## PLUS Implementation
+
+Maybe you should take a look here https://github.com/fhgomes/java-comparator/tree/feature/assync_process
+
+This version use JMS and start process when the second side is received.
+The result is saved in database.
