@@ -26,6 +26,12 @@ Its an option to provide another Spring Profile that can turn it off and redirec
 
 It will create a Jar file in ./boot/target
 
+## RUN
+
+In /boot/target
+
+java -jar boot-1.0.0-SNAPSHOT.jar
+
 # Run tests
 
 I Decided to split the unit and integrations, because the integrations maybe become slow
