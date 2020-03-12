@@ -4,6 +4,6 @@ import org.com.fernando.share.data.CompareResultDTO;
 import org.com.fernando.share.data.DataContentDTO;
 
 public interface IFileSpecificComparator {
-    CompareResultDTO findDiffInsights(DataContentDTO contentLeft, DataContentDTO contentRight);
+    CompareResultDTO findDiff(DataContentDTO contentLeft, DataContentDTO contentRight);
     FileType getFileType();
 }

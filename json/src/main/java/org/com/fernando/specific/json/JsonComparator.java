@@ -9,12 +9,8 @@ import org.com.fernando.share.data.CompareResultDTO;
 import org.com.fernando.share.data.DataContentDTO;
 import org.com.fernando.util.MessagesWrapper;
 import org.com.fernando.util.encoding.DecoderFactory;
-import org.omg.CORBA.Object;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.com.fernando.specific.json.common.JsonMsgConstants.DIFF_JSON_FIELDS_NOT_EQUALS;
@@ -26,19 +22,17 @@ public class JsonComparator implements IFileSpecificComparator {
     private final DecoderFactory decoderFactory;
     private final MessagesWrapper messagesWrapper;
     private final JsonHelper jsonHelper;
-    private final MessageSource messageSource;
 
     public JsonComparator(DecoderFactory decoderFactory,
                           MessagesWrapper messagesWrapper,
-                          JsonHelper jsonHelper, MessageSource messageSource) {
+                          JsonHelper jsonHelper) {
         this.decoderFactory = decoderFactory;
         this.messagesWrapper = messagesWrapper;
         this.jsonHelper = jsonHelper;
-        this.messageSource = messageSource;
     }
 
     @Override
-    public CompareResultDTO findDiffInsights(DataContentDTO contentLeft, DataContentDTO contentRight) {
+    public CompareResultDTO findDiff(DataContentDTO contentLeft, DataContentDTO contentRight) {
         IDecoder base64Decoder = decoderFactory.getDefaultDecoder();
         String leftDecoded = base64Decoder.decode(contentLeft.getRawContent());
         String rightDecoded = base64Decoder.decode(contentRight.getRawContent());
@@ -70,7 +64,7 @@ public class JsonComparator implements IFileSpecificComparator {
         CompareResultDTO resultDTO = new CompareResultDTO(false, 409, DIFF_JSON_FIELDS_NOT_EQUALS, message);
 
         List<String> differences = jsonHelper.getJsonDiff(leftJObject, rightJObject);
-        differences.forEach(diff -> resultDTO.addDifference(diff));
+        differences.forEach(resultDTO::addDifference);
         return resultDTO;
     }
 

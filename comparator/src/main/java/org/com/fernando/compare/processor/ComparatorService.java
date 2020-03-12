@@ -59,7 +59,7 @@ public class ComparatorService {
 
     private CompareResultDTO findDiffInsights(DataContentDTO contentLeft, DataContentDTO contentRight) {
         IFileSpecificComparator comparator = specificComparatorFactory.getComparatorFor(FileType.JSON);
-        return comparator.findDiffInsights(contentLeft, contentRight);
+        return comparator.findDiff(contentLeft, contentRight);
     }
 
     private CompareResultDTO createComparingError(ComparingException e) {

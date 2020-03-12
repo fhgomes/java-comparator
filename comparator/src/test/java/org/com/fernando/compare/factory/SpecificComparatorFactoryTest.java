@@ -62,7 +62,7 @@ class SpecificComparatorFactoryTest {
     class FakeJsonComparator implements IFileSpecificComparator {
 
         @Override
-        public CompareResultDTO findDiffInsights(DataContentDTO contentLeft, DataContentDTO contentRight) {
+        public CompareResultDTO findDiff(DataContentDTO contentLeft, DataContentDTO contentRight) {
             return null;
         }
 
@@ -75,7 +75,7 @@ class SpecificComparatorFactoryTest {
     class FakeXMLComparator implements IFileSpecificComparator {
 
         @Override
-        public CompareResultDTO findDiffInsights(DataContentDTO contentLeft, DataContentDTO contentRight) {
+        public CompareResultDTO findDiff(DataContentDTO contentLeft, DataContentDTO contentRight) {
             return null;
         }
 

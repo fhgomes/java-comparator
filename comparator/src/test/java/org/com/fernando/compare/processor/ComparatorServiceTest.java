@@ -3,14 +3,12 @@ package org.com.fernando.compare.processor;
 import org.com.fernando.compare.factory.SpecificComparatorFactory;
 import org.com.fernando.core.service.DataObjectService;
 import org.com.fernando.share.contracts.FileType;
-import org.com.fernando.share.contracts.IDataObjectContract;
 import org.com.fernando.share.contracts.IFileSpecificComparator;
 import org.com.fernando.share.data.CompareResultDTO;
 import org.com.fernando.share.data.DataComparableDTO;
 import org.com.fernando.share.data.DataContentDTO;
 import org.com.fernando.share.exception.ComparingException;
 import org.com.fernando.util.MessagesWrapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -79,7 +77,7 @@ class ComparatorServiceTest {
         when(dataContentLeftMock.getRawContent()).thenReturn("content");
         when(dataContentRightMock.getRawContent()).thenReturn("contentDiff");
 
-        when(fakeJsonComparatorMock.findDiffInsights(dataContentLeftMock, dataContentRightMock)).thenReturn(resultMock);
+        when(fakeJsonComparatorMock.findDiff(dataContentLeftMock, dataContentRightMock)).thenReturn(resultMock);
         when(resultMock.getCode()).thenReturn("invalid.code");
         when(resultMock.getStatus()).thenReturn(409);
 
@@ -108,7 +106,7 @@ class ComparatorServiceTest {
     class FakeJsonComparator implements IFileSpecificComparator {
 
         @Override
-        public CompareResultDTO findDiffInsights(DataContentDTO contentLeft, DataContentDTO contentRight) {
+        public CompareResultDTO findDiff(DataContentDTO contentLeft, DataContentDTO contentRight) {
             return null;
         }
 
