@@ -1,9 +1,32 @@
-  version: '3.4'
+version: '3.4'
 
-  services:
-    java-comparator:
-      image: fernandosgomes/java-comparator
-      ports:
-        - 32808:8080
-      environment:
-        - "SPRING_PROFILES_ACTIVE=dev"
+services:
+  java-comparator:
+    depends_on:
+      - db-mongo
+    image: fernandosgomes/java-comparator
+    ports:
+      - 8080:8080
+    environment:
+      - "SPRING_PROFILES_ACTIVE=docker"
+    networks:
+      - java-comparator-netw
+
+  db-mongo:
+    image: mongo
+    container_name: db-mongo
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: root
+#      MONGO_INITDB_ROOT_PASSWORD: root123
+    ports:
+      - "27017:27017"
+    volumes:
+      - v_db-data:/data/db:rw
+    networks:
+      - java-comparator-netw
+
+networks:
+  java-comparator-netw:
+volumes:
+  v_db-data:
+

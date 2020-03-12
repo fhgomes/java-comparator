@@ -1,0 +1,55 @@
+# ===================================================================
+# Spring Boot configuration.
+# ANBCore
+# ===================================================================
+server:
+  port: 8080
+
+info:
+  project:
+    version: #project.version#
+spring:
+  profiles:
+    active: docker
+  #Artemis JMS
+  artemis:
+    mode: embedded
+    embedded:
+      enabled: true
+      persistent: true
+    concurrency: 25
+  data:
+    mongodb:
+      auto-index-creation: false
+      database: db-java-comparator
+      host: db-mongo
+#      host: localhost
+      port: 27017
+#      authentication-database: admin
+#      username: root
+#      password: root123
+
+
+## To disable embedded Mongo
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration
+
+# actuator
+# ===================================================================
+management:
+
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+
+# ===================================================================
+# queues
+# ===================================================================
+queue:
+  decode: queue.decode
+  compare: queue.compare
