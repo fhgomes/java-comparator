@@ -17,6 +17,11 @@
             <artifactId>share</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>org.com.fernando</groupId>
+            <artifactId>util</artifactId>
+            <version>${revision}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>

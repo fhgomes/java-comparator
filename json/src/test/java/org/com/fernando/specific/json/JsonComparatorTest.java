@@ -66,8 +66,8 @@ class JsonComparatorTest {
             configureJsonMocks("encL", jsonName, ObjectDirection.LEFT);
             configureJsonMocks("encR", jsonNameAge, ObjectDirection.RIGHT);
 
-            when(dataLeftMock.getRawContent()).thenReturn("encL");
-            when(dataRightMock.getRawContent()).thenReturn("encR");
+            when(dataLeftMock.getRawContent()).thenReturn("encL".getBytes());
+            when(dataRightMock.getRawContent()).thenReturn("encR".getBytes());
 
             CompareResultDTO result = jsonComparator.findDiff(dataLeftMock, dataRightMock);
 
@@ -84,8 +84,8 @@ class JsonComparatorTest {
             JsonNode nodeL = configureJsonMocks("encL", jsonName, ObjectDirection.LEFT);
             JsonNode nodeR = configureJsonMocks("encR", jsonName2, ObjectDirection.RIGHT);
 
-            when(dataLeftMock.getRawContent()).thenReturn("encL");
-            when(dataRightMock.getRawContent()).thenReturn("encR");
+            when(dataLeftMock.getRawContent()).thenReturn("encL".getBytes());
+            when(dataRightMock.getRawContent()).thenReturn("encR".getBytes());
             when(jsonHelper.getJsonDiff(nodeL, nodeR)).thenReturn(Arrays.asList("diff value"));
 
             CompareResultDTO result = jsonComparator.findDiff(dataLeftMock, dataRightMock);

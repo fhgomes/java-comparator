@@ -19,7 +19,7 @@ public class DataContentDTO {
     private Calendar createdDate;
 
     @JsonProperty("rawContent")
-    private String rawContent;
+    private byte[] rawContent;
 
     @JsonProperty("decodedContent")
     private String decodedContent;
@@ -48,11 +48,11 @@ public class DataContentDTO {
         this.createdDate = createdDate;
     }
 
-    public String getRawContent() {
+    public byte[] getRawContent() {
         return rawContent;
     }
 
-    public void setRawContent(String rawContent) {
+    public void setRawContent(byte[] rawContent) {
         this.rawContent = rawContent;
     }
 

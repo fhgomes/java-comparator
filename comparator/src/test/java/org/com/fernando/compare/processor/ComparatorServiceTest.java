@@ -56,8 +56,8 @@ class ComparatorServiceTest {
         when(dataObjectService.findComparableByReference("123")).thenReturn(dataComparableMock);
         when(dataComparableMock.getContentLeft()).thenReturn(dataContentLeftMock);
         when(dataComparableMock.getContentRight()).thenReturn(dataContentRightMock);
-        when(dataContentLeftMock.getRawContent()).thenReturn("content");
-        when(dataContentRightMock.getRawContent()).thenReturn("content");
+        when(dataContentLeftMock.getRawContent()).thenReturn("content".getBytes());
+        when(dataContentRightMock.getRawContent()).thenReturn("content".getBytes());
 
         CompareResultDTO result = comparatorService.compare("123");
         assertAll(
@@ -74,8 +74,8 @@ class ComparatorServiceTest {
         when(dataObjectService.findComparableByReference("123")).thenReturn(dataComparableMock);
         when(dataComparableMock.getContentLeft()).thenReturn(dataContentLeftMock);
         when(dataComparableMock.getContentRight()).thenReturn(dataContentRightMock);
-        when(dataContentLeftMock.getRawContent()).thenReturn("content");
-        when(dataContentRightMock.getRawContent()).thenReturn("contentDiff");
+        when(dataContentLeftMock.getRawContent()).thenReturn("content".getBytes());
+        when(dataContentRightMock.getRawContent()).thenReturn("contentDiff".getBytes());
 
         when(fakeJsonComparatorMock.findDiff(dataContentLeftMock, dataContentRightMock)).thenReturn(resultMock);
         when(resultMock.getCode()).thenReturn("invalid.code");

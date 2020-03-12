@@ -21,11 +21,11 @@ public class DataObjectService extends DataObjectFindService implements IDataObj
         this.dataObjectValidator = dataObjectValidator;
     }
 
-    public String saveDataLeft(String refId, String rawContent) {
+    public String saveDataLeft(String refId, byte[] rawContent) {
         return doSaveData(refId, rawContent, ObjectDirection.LEFT);
     }
 
-    public String saveDataRight(String refId, String rawContent) {
+    public String saveDataRight(String refId, byte[] rawContent) {
         return doSaveData(refId, rawContent, ObjectDirection.RIGHT);
     }
 
@@ -34,7 +34,7 @@ public class DataObjectService extends DataObjectFindService implements IDataObj
         return dataObjectFactory.transformDataToDTO(refId, byReferenceId);
     }
 
-    private String doSaveData(String refId, String rawContent, ObjectDirection direction) {
+    private String doSaveData(String refId, byte[] rawContent, ObjectDirection direction) {
         dataObjectValidator.validateContent(rawContent);
         dataObjectValidator.validateAlreadyExist(refId, direction);
         DataObject saved = dataObjectRepository.save(dataObjectFactory.createNewObject(refId, direction, rawContent));

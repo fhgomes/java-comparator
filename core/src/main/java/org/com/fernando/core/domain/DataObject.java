@@ -29,14 +29,14 @@ public class DataObject implements Serializable {
     @Indexed
     private Calendar createdDate;
 
-    private String rawContent;
+    private byte[] rawContent;
     private String decodedContent;
 
     protected DataObject() {
         //serialization
     }
 
-    public DataObject(String referenceId, ObjectDirection direction, String rawContent) {
+    public DataObject(String referenceId, ObjectDirection direction, byte[] rawContent) {
         this.referenceId = referenceId;
         this.direction = direction;
         this.rawContent = rawContent;
@@ -60,11 +60,11 @@ public class DataObject implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public String getRawContent() {
+    public byte[] getRawContent() {
         return rawContent;
     }
 
-    public void setRawContent(String rawContent) {
+    public void setRawContent(byte[] rawContent) {
         this.rawContent = rawContent;
     }
 

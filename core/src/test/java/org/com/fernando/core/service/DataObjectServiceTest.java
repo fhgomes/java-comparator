@@ -38,11 +38,11 @@ class DataObjectServiceTest {
     @Test
     @DisplayName("Should save left")
     void saveDataLeft() {
-        when(dataObjectFactory.createNewObject("abc123", ObjectDirection.LEFT, "cont")).thenReturn(objectToSaveMock);
+        when(dataObjectFactory.createNewObject("abc123", ObjectDirection.LEFT, "cont".getBytes())).thenReturn(objectToSaveMock);
         when(dataObjectRepository.save(objectToSaveMock)).thenReturn(objectSavedMock);
         when(objectSavedMock.getId()).thenReturn("abc123qwerty");
 
-        String id = dataObjectService.saveDataLeft("abc123", "cont");
+        String id = dataObjectService.saveDataLeft("abc123", "cont".getBytes());
 
         assertEquals("abc123qwerty", id);
     }
@@ -50,11 +50,11 @@ class DataObjectServiceTest {
     @Test
     @DisplayName("Should save right")
     void saveDataRight() {
-        when(dataObjectFactory.createNewObject("abc123", ObjectDirection.RIGHT, "cont")).thenReturn(objectToSaveMock);
+        when(dataObjectFactory.createNewObject("abc123", ObjectDirection.RIGHT, "cont".getBytes())).thenReturn(objectToSaveMock);
         when(dataObjectRepository.save(objectToSaveMock)).thenReturn(objectSavedMock);
         when(objectSavedMock.getId()).thenReturn("abc123qwerty");
 
-        String id = dataObjectService.saveDataRight("abc123", "cont");
+        String id = dataObjectService.saveDataRight("abc123", "cont".getBytes());
 
         assertEquals("abc123qwerty", id);
     }
@@ -62,15 +62,15 @@ class DataObjectServiceTest {
     @Test
     @DisplayName("Should call validations when save")
     void saveDoValidationsWhenSave() {
-        when(dataObjectFactory.createNewObject("abc123", ObjectDirection.RIGHT, "cont")).thenReturn(objectToSaveMock);
+        when(dataObjectFactory.createNewObject("abc123", ObjectDirection.RIGHT, "cont".getBytes())).thenReturn(objectToSaveMock);
         when(dataObjectRepository.save(objectToSaveMock)).thenReturn(objectSavedMock);
         when(objectSavedMock.getId()).thenReturn("abc123qwerty");
 
-        String id = dataObjectService.saveDataRight("abc123", "cont");
+        String id = dataObjectService.saveDataRight("abc123", "cont".getBytes());
 
         assertAll(
                 () -> assertEquals("abc123qwerty", id),
-                () -> verify(dataObjectValidator).validateContent("cont"),
+                () -> verify(dataObjectValidator).validateContent("cont".getBytes()),
                 () -> verify(dataObjectValidator).validateAlreadyExist("abc123", ObjectDirection.RIGHT)
         );
     }

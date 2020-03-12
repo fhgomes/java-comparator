@@ -11,10 +11,12 @@ import org.com.fernando.util.MessagesWrapper;
 import org.com.fernando.util.encoding.DecoderFactory;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.com.fernando.specific.json.common.JsonMsgConstants.DIFF_JSON_FIELDS_NOT_EQUALS;
 import static org.com.fernando.specific.json.common.JsonMsgConstants.DIFF_JSON_SIZE_NOT_EQUALS;
+import static org.com.fernando.util.encoding.BytesToStringUtil.bytesToString;
 
 @Component
 public class JsonComparator implements IFileSpecificComparator {
@@ -34,8 +36,8 @@ public class JsonComparator implements IFileSpecificComparator {
     @Override
     public CompareResultDTO findDiff(DataContentDTO contentLeft, DataContentDTO contentRight) {
         IDecoder base64Decoder = decoderFactory.getDefaultDecoder();
-        String leftDecoded = base64Decoder.decode(contentLeft.getRawContent());
-        String rightDecoded = base64Decoder.decode(contentRight.getRawContent());
+        String leftDecoded = base64Decoder.decode(bytesToString(contentLeft.getRawContent()));
+        String rightDecoded = base64Decoder.decode(bytesToString(contentRight.getRawContent()));
         return compareJson(leftDecoded, rightDecoded);
     }
 

@@ -25,16 +25,16 @@ class StoreDataResourceTest {
     @Test
     @DisplayName("Should receive request saveDataLeft and delegate to service")
     void storeLeftData() {
-        when(dataObjectService.saveDataLeft("abc123", "content")).thenReturn("id");
-        HttpEntity<String> response = storeDataResource.storeLeftData("abc123", "content");
+        when(dataObjectService.saveDataLeft("abc123", "content".getBytes())).thenReturn("id");
+        HttpEntity<String> response = storeDataResource.storeLeftData("abc123", "content".getBytes());
         assertAll(()-> assertEquals("id", response.getBody()));
     }
 
     @Test
     @DisplayName("Should receive request saveDataRight and delegate to service")
     void storeRightData() {
-        when(dataObjectService.saveDataRight("abc123", "content")).thenReturn("id");
-        HttpEntity<String> response = storeDataResource.storeRightData("abc123", "content");
+        when(dataObjectService.saveDataRight("abc123", "content".getBytes())).thenReturn("id");
+        HttpEntity<String> response = storeDataResource.storeRightData("abc123", "content".getBytes());
         assertAll(()-> assertEquals("id", response.getBody()));
     }
 }

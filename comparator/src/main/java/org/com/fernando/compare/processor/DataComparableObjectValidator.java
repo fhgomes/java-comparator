@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 
 import static java.util.Objects.isNull;
 import static org.com.fernando.compare.common.ComparingMsgConstants.*;
+import static org.com.fernando.util.encoding.BytesToStringUtil.bytesToString;
 
 @Service
 public class DataComparableObjectValidator {
@@ -37,7 +38,7 @@ public class DataComparableObjectValidator {
             throw new ComparingException(msgMissing);
         }
 
-        if (StringUtils.isEmpty(content.getRawContent())) {
+        if (isNull(content.getRawContent()) || StringUtils.isEmpty(bytesToString(content.getRawContent()))) {
             throw new ComparingException(messageEmpty);
         }
     }

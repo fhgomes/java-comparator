@@ -1,6 +1,7 @@
 package org.com.fernando.core.resource;
 
 import org.com.fernando.core.service.DataObjectService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,19 +15,16 @@ public class StoreDataResource {
         this.dataObjectService = dataObjectService;
     }
 
-    //TODO change to bytes consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE
-    //here i'm using String to make it easier to develop and test
-    @PostMapping(value = "/{id}/left")
+    @PostMapping(value = "/{id}/left", consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<String> storeLeftData(@PathVariable("id") String refId,
-                                                @RequestBody(required = false) String content) {
+                                                @RequestBody(required = false) byte[] content) {
         String savedId = dataObjectService.saveDataLeft(refId, content);
         return ResponseEntity.accepted().body(savedId);
     }
 
-    //TODO change to bytes consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE
-    @PostMapping(value = "/{id}/right")
+    @PostMapping(value = "/{id}/right", consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<String> storeRightData(@PathVariable("id") String refId,
-                                                 @RequestBody(required = false) String content) {
+                                                 @RequestBody(required = false) byte[] content) {
         String savedId = dataObjectService.saveDataRight(refId, content);
         return ResponseEntity.accepted().body(savedId);
     }
