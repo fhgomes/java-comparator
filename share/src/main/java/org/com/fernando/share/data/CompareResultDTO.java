@@ -1,7 +1,11 @@
 package org.com.fernando.share.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CompareResultDTO {
@@ -18,15 +22,15 @@ public class CompareResultDTO {
   @JsonProperty("message")
   private final String message;
 
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  @JsonProperty("differences")
+  private List<String> differences = new ArrayList<>();
+
   public CompareResultDTO(boolean validEquals, int status, String code, String message) {
     this.validEquals = validEquals;
     this.status = status;
     this.code = code;
     this.message = message;
-  }
-
-  public static CompareResultDTO withEquals(String message) {
-    return new CompareResultDTO(true, 200, "diff.OK", message);
   }
 
   public String getCode() {
@@ -43,5 +47,13 @@ public class CompareResultDTO {
 
   public int getStatus() {
     return status;
+  }
+
+  public List<String> getDifferences() {
+    return differences;
+  }
+
+  public void addDifference(String difference) {
+    this.differences.add(difference);
   }
 }

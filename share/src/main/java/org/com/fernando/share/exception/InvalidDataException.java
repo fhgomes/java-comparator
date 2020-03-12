@@ -6,6 +6,7 @@ public class InvalidDataException extends RuntimeException {
   private final int httpStatus;
 
   public InvalidDataException(String code) {
+    super(code);
     this.code = code;
     this.httpStatus = 412;
   }

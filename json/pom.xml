@@ -11,5 +11,29 @@
 
     <artifactId>json</artifactId>
 
+    <properties>
+        <zjsonpatch.version>0.4.9</zjsonpatch.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.com.fernando</groupId>
+            <artifactId>share</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.com.fernando</groupId>
+            <artifactId>util</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.flipkart.zjsonpatch</groupId>
+            <artifactId>zjsonpatch</artifactId>
+            <version>${zjsonpatch.version}</version>
+        </dependency>
+    </dependencies>
+
 
 </project>

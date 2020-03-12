@@ -1,6 +1,10 @@
 package org.com.fernando.compare.processor;
 
+import org.com.fernando.compare.factory.SpecificComparatorFactory;
 import org.com.fernando.core.service.DataObjectService;
+import org.com.fernando.share.contracts.FileType;
+import org.com.fernando.share.contracts.IDataObjectContract;
+import org.com.fernando.share.contracts.IFileSpecificComparator;
 import org.com.fernando.share.data.CompareResultDTO;
 import org.com.fernando.share.data.DataComparableDTO;
 import org.com.fernando.share.data.DataContentDTO;
@@ -8,28 +12,33 @@ import org.com.fernando.share.exception.ComparingException;
 import org.com.fernando.util.MessagesWrapper;
 import org.springframework.stereotype.Service;
 
+import static org.com.fernando.compare.common.ComparingMsgConstants.DIFF_EQUALS;
+import static org.com.fernando.compare.common.ComparingMsgConstants.DIFF_SIZE_NOT_EQUALS;
+
 @Service
 public class ComparatorService {
 
-    /**
-     * Here i'm using some core service, but someday i can simple replace it by some rest service
+    /*
+     * Here i'm using some core service, but someday i can simple replace the impl with some rest service
      */
-    //TODO replace by some interface
-    private final DataObjectService dataObjectService;
+    private final IDataObjectContract dataObjectService;
     private final DataComparableObjectValidator dataComparableObjectValidator;
     private final MessagesWrapper messagesWrapper;
+    private final SpecificComparatorFactory specificComparatorFactory;
 
     public ComparatorService(DataObjectService dataObjectService,
                              DataComparableObjectValidator dataComparableObjectValidator,
-                             MessagesWrapper messagesWrapper) {
+                             MessagesWrapper messagesWrapper,
+                             SpecificComparatorFactory specificComparatorFactory) {
         this.dataObjectService = dataObjectService;
         this.dataComparableObjectValidator = dataComparableObjectValidator;
         this.messagesWrapper = messagesWrapper;
+        this.specificComparatorFactory = specificComparatorFactory;
     }
 
     public CompareResultDTO compare(String id) {
         try {
-            DataComparableDTO dataComparable = dataObjectService.findDataByReference(id);
+            DataComparableDTO dataComparable = dataObjectService.findComparableByReference(id);
             dataComparableObjectValidator.validateDataToCompare(dataComparable);
             return compare(dataComparable.getContentLeft(), dataComparable.getContentRight());
         } catch (ComparingException e) {
@@ -43,16 +52,27 @@ public class ComparatorService {
 
     private CompareResultDTO compare(DataContentDTO contentLeft,
                                      DataContentDTO contentRight) {
-        CompareResultDTO result = simpleCompareSize(contentLeft, contentRight);
-
-        return result;
+        boolean equalSize = contentLeft.getRawContent().length() == contentRight.getRawContent().length();
+        if (true) {
+            return compareAllContent(contentLeft, contentRight);
+        }
+        String message = messagesWrapper.get(DIFF_SIZE_NOT_EQUALS);
+        return new CompareResultDTO(equalSize, 409, DIFF_SIZE_NOT_EQUALS, message);
     }
 
-    private CompareResultDTO simpleCompareSize(DataContentDTO contentLeft, DataContentDTO contentRight) {
-        boolean equalSize = contentLeft.getRawContent().length() == contentRight.getRawContent().length();
-        int status = (equalSize) ? 200 : 409;
-        String code = (equalSize) ? "diff.size_not_equals" : "diff.size_equals";
-        String message = messagesWrapper.get(code);
-        return new CompareResultDTO(equalSize, status, code, message);
+    private CompareResultDTO compareAllContent(DataContentDTO contentLeft, DataContentDTO contentRight) {
+        boolean sameContent = contentLeft.getRawContent().equals(contentRight.getRawContent());
+
+        if (sameContent) {
+            String message = messagesWrapper.get(DIFF_EQUALS);
+            return new CompareResultDTO(sameContent, 200, DIFF_EQUALS, message);
+        }
+
+        return findDiffInsights(contentLeft, contentRight);
+    }
+
+    private CompareResultDTO findDiffInsights(DataContentDTO contentLeft, DataContentDTO contentRight) {
+        IFileSpecificComparator comparator = specificComparatorFactory.getComparatorFor(FileType.JSON);
+        return comparator.findDiffInsights(contentLeft, contentRight);
     }
 }

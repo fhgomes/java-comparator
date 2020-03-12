@@ -3,24 +3,22 @@ package org.com.fernando.core.service;
 import org.com.fernando.core.domain.DataObject;
 import org.com.fernando.core.repository.DataObjectRepository;
 import org.com.fernando.share.ObjectDirection;
+import org.com.fernando.share.contracts.IDataObjectContract;
 import org.com.fernando.share.data.DataComparableDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class DataObjectService {
+public class DataObjectService extends DataObjectFindService implements IDataObjectContract {
 
-    private final DataObjectRepository usuarioRepository;
     private final DataObjectValidator dataObjectValidator;
-    private final DataObjectFactory dataObjectFactory;
 
-    public DataObjectService(DataObjectRepository usuarioRepository,
+    public DataObjectService(DataObjectRepository dataObjectRepository,
                              DataObjectValidator dataObjectValidator,
                              DataObjectFactory dataObjectFactory) {
-        this.usuarioRepository = usuarioRepository;
+        super(dataObjectRepository, dataObjectFactory);
         this.dataObjectValidator = dataObjectValidator;
-        this.dataObjectFactory = dataObjectFactory;
     }
 
     public String saveDataLeft(String refId, String rawContent) {
@@ -31,14 +29,15 @@ public class DataObjectService {
         return doSaveData(refId, rawContent, ObjectDirection.RIGHT);
     }
 
-    public DataComparableDTO findDataByReference(String refId) {
-        List<DataObject> byReferenceId = usuarioRepository.findByReferenceId(refId);
+    public DataComparableDTO findComparableByReference(String refId) {
+        List<DataObject> byReferenceId = dataObjectRepository.findByReferenceId(refId);
         return dataObjectFactory.transformDataToDTO(refId, byReferenceId);
     }
 
     private String doSaveData(String refId, String rawContent, ObjectDirection direction) {
         dataObjectValidator.validateContent(rawContent);
-        DataObject saved = usuarioRepository.save(dataObjectFactory.createNewObject(refId, direction, rawContent));
+        dataObjectValidator.validateAlreadyExist(refId, direction);
+        DataObject saved = dataObjectRepository.save(dataObjectFactory.createNewObject(refId, direction, rawContent));
         return saved.getId();
     }
 

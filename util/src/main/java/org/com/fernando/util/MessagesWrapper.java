@@ -22,7 +22,7 @@ public class MessagesWrapper {
     private static final String MSG_NOT_CONFIGURED = "i18n.msg.not_configured: %s";
     private static final String MSG_WITH_WRONG_PARAMS = "i18n.msg.wrong_params: %s - %s";
 
-    private static final Logger log = LoggerFactory.getLogger(MessagesWrapper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MessagesWrapper.class);
 
     private MessageSourceAccessor accessor;
 
@@ -36,7 +36,7 @@ public class MessagesWrapper {
             return accessor.getMessage(code);
         } catch (NoSuchMessageException e) {
             String msgReturn = format(MSG_NOT_CONFIGURED, code);
-            log.warn(msgReturn);
+            LOG.warn(msgReturn);
             return msgReturn;
         }
     }
@@ -50,12 +50,12 @@ public class MessagesWrapper {
             return format(message, arguments);
         } catch (NoSuchMessageException e) {
             String msgReturn = format(MSG_NOT_CONFIGURED, keyMessage);
-            log.warn(msgReturn);
+            LOG.warn(msgReturn);
             return msgReturn;
         } catch (MissingFormatArgumentException e) {
             String collect = Arrays.stream(arguments).map(Object::toString).collect(Collectors.joining(","));
             String msgReturn = format(MSG_WITH_WRONG_PARAMS, keyMessage, collect);
-            log.warn(msgReturn);
+            LOG.warn(msgReturn);
             return msgReturn;
         }
     }

@@ -30,11 +30,7 @@
         <spring-boot-starter.version>2.2.4.RELEASE</spring-boot-starter.version>
         <spring-security-jwt.version>1.1.0.RELEASE</spring-security-jwt.version>
         <spring-security-oauth2-autoconfigure.version>2.2.2.RELEASE</spring-security-oauth2-autoconfigure.version>
-        <jjwt.version>0.9.1</jjwt.version>
 
-        <mapstruct.version>1.3.1.Final</mapstruct.version>
-
-        <lombok.version>1.18.10</lombok.version>
         <gson.version>2.8.2</gson.version>
         <jackson.version>2.10.2</jackson.version>
         <slf4j-api.version>1.7.30</slf4j-api.version>
@@ -85,12 +81,7 @@
                 <artifactId>jackson-module-jaxb-annotations</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
@@ -104,12 +95,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
         </dependency>
 
         <dependency>
@@ -169,19 +154,6 @@
                 <configuration>
                     <source>${java.version}</source> <!-- depending on your project -->
                     <target>${java.version}</target> <!-- depending on your project -->
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>${mapstruct.version}</version>
-                        </path>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${lombok.version}</version>
-                        </path>
-                        <!-- other annotation processors -->
-                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
         </plugins>
@@ -189,7 +161,7 @@
 
     <profiles>
         <profile>
-            <id>with-integration-tests</id>
+            <id>test_with_integration</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>

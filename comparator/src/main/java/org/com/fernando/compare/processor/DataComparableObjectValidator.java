@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import static java.util.Objects.isNull;
+import static org.com.fernando.compare.common.ComparingMsgConstants.*;
 
 @Service
 public class DataComparableObjectValidator {
@@ -16,7 +17,7 @@ public class DataComparableObjectValidator {
           Here this validation is more an protection to isolated an ensure that we will not face a nullPointer
          */
         if (isNull(contents)) {
-            throw new ComparingException("diff.invalid.content_missing");
+            throw new ComparingException(DIFF_INVALID_CONTENT_MISSING);
         }
 
         validateLeft(contents);
@@ -24,11 +25,11 @@ public class DataComparableObjectValidator {
     }
 
     private void validateLeft(DataComparableDTO contents) {
-        validateContent(contents.getContentLeft(), "diff.invalid.left_not_received", "diff.invalid.left_without_content");
+        validateContent(contents.getContentLeft(), DIFF_INVALID_LEFT_NOT_RECEIVED, DIFF_INVALID_LEFT_WITHOUT_CONTENT);
     }
 
     private void validateRight(DataComparableDTO contents) {
-        validateContent(contents.getContentRight(), "diff.invalid.right_not_received", "diff.invalid.right_without_content");
+        validateContent(contents.getContentRight(), DIFF_INVALID_RIGHT_NOT_RECEIVED, DIFF_INVALID_RIGHT_WITHOUT_CONTENT);
     }
 
     private void validateContent(DataContentDTO content, String msgMissing, String messageEmpty) {

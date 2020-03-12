@@ -1,5 +1,6 @@
-package org.com.fernando.compare.encoding;
+package org.com.fernando.util.encoding;
 
+import org.com.fernando.share.contracts.IDecoder;
 import org.springframework.stereotype.Component;
 
 /**

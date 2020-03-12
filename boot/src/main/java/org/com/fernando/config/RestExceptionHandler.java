@@ -2,8 +2,8 @@ package org.com.fernando.config;
 
 import org.com.fernando.share.exception.ComparingException;
 import org.com.fernando.share.exception.InvalidResultDTO;
+import org.com.fernando.util.MessagesWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,16 +13,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-  private final MessageSource messageSource;
+  private final MessagesWrapper messagesWrapper;
 
   @Autowired
-  public RestExceptionHandler(MessageSource messageSource) {
-    this.messageSource = messageSource;
+  public RestExceptionHandler(MessagesWrapper messagesWrapper) {
+    this.messagesWrapper = messagesWrapper;
   }
 
   @ExceptionHandler(ComparingException.class)
   protected ResponseEntity<InvalidResultDTO> codeException(ComparingException ex) {
-    String localizedMessage = findLocalizedMessage(ex.getCode(), new Object());
+    String localizedMessage = findLocalizedMessage(ex.getCode(), ex.getMsgArgs());
     InvalidResultDTO exceptionResult = new InvalidResultDTO(ex.getCode(), localizedMessage);
 
     return ResponseEntity
@@ -30,14 +30,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
       .body(exceptionResult);
   }
 
-  /**
-   * Internalization, find message and also, apply the arguments
-   *
-   * @param code      I18N message code
-   * @param arguments Arguments for the message
-   * @return Localized message
-   */
   private String findLocalizedMessage(String code, Object... arguments) {
-    return messageSource.getMessage(code, arguments, LocaleContextHolder.getLocale());
+    return messagesWrapper.getMessage(code, arguments, LocaleContextHolder.getLocale());
   }
 }
