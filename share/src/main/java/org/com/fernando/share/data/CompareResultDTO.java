@@ -11,20 +11,24 @@ import java.util.List;
 public class CompareResultDTO {
 
   @JsonProperty("validEquals")
-  private final boolean validEquals;
+  private boolean validEquals;
 
   @JsonProperty("status")
-  private final int status;
+  private int status;
 
   @JsonProperty("code")
-  private final String code;
+  private String code;
 
   @JsonProperty("message")
-  private final String message;
+  private String message;
 
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
   @JsonProperty("differences")
   private List<String> differences = new ArrayList<>();
+
+  public CompareResultDTO() {
+    //to serialization
+  }
 
   public CompareResultDTO(boolean validEquals, int status, String code, String message) {
     this.validEquals = validEquals;

@@ -1,7 +1,6 @@
 package org.com.fernando.core.resource;
 
 import org.com.fernando.core.service.DataObjectService;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +15,7 @@ public class StoreDataResource {
     }
 
     //TODO change to bytes consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE
+    //here i'm using String to make it easier to develop and test
     @PostMapping(value = "/{id}/left")
     public ResponseEntity<String> storeLeftData(@PathVariable("id") String refId,
                                                 @RequestBody String content) {
