@@ -3,7 +3,7 @@ package org.com.fernando.compare.processor;
 import org.com.fernando.compare.factory.SpecificComparatorFactory;
 import org.com.fernando.core.service.DataObjectService;
 import org.com.fernando.share.contracts.FileType;
-import org.com.fernando.share.contracts.IDataObjectContract;
+import org.com.fernando.share.contracts.IDataObjectFindableContract;
 import org.com.fernando.share.contracts.IFileSpecificComparator;
 import org.com.fernando.share.data.CompareResultDTO;
 import org.com.fernando.share.data.DataComparableDTO;
@@ -20,16 +20,16 @@ public class ComparatorService {
     /*
      * Here i'm using some core service, but someday i can simple replace the impl with some rest service
      */
-    private final IDataObjectContract dataObjectService;
+    private final IDataObjectFindableContract objectFindableContract;
     private final DataComparableObjectValidator dataComparableObjectValidator;
     private final MessagesWrapper messagesWrapper;
     private final SpecificComparatorFactory specificComparatorFactory;
 
-    public ComparatorService(DataObjectService dataObjectService,
+    public ComparatorService(DataObjectService objectFindableContract,
                              DataComparableObjectValidator dataComparableObjectValidator,
                              MessagesWrapper messagesWrapper,
                              SpecificComparatorFactory specificComparatorFactory) {
-        this.dataObjectService = dataObjectService;
+        this.objectFindableContract = objectFindableContract;
         this.dataComparableObjectValidator = dataComparableObjectValidator;
         this.messagesWrapper = messagesWrapper;
         this.specificComparatorFactory = specificComparatorFactory;
@@ -37,7 +37,7 @@ public class ComparatorService {
 
     public CompareResultDTO compare(String id) {
         try {
-            DataComparableDTO dataComparable = dataObjectService.findComparableByReference(id);
+            DataComparableDTO dataComparable = objectFindableContract.findComparableByReference(id);
             dataComparableObjectValidator.validateDataToCompare(dataComparable);
             return compare(dataComparable.getContentLeft(), dataComparable.getContentRight());
         } catch (ComparingException e) {

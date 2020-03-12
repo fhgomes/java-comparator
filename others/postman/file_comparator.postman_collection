@@ -1,0 +1,430 @@
+{
+	"info": {
+		"_postman_id": "0d2c858b-5fa1-40b2-b278-cd587c18a974",
+		"name": "file comparator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "equal",
+			"item": [
+				{
+					"name": "LEFT",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/diff/ABC123/left",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"diff",
+								"ABC123",
+								"left"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RIGHT",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "ewogICJuYW1lIjogImZlcm5hbmRvIiwKICAiYWdlIjogMzEKfQ=="
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/diff/ABC123/right",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"diff",
+								"ABC123",
+								"right"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "COMPARE",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "ewogICJuYW1lIjogImZlcm5hbmRvIiwKICAiYWdlIjogMzEKfQ==\newogICJuYW1lIjogImZlcm5hbmRvIiwKICAiYWdlIjogMzIKfQ=="
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/diff/ABC123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"diff",
+								"ABC123"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "dif right same fields",
+			"item": [
+				{
+					"name": "LEFT",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "text/plain",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "ewogICJuYW1lIjogImZlcm5hbmRvIiwKICAiYWdlIjogMzEKfQ==",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/diff/ABC124/left",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"diff",
+								"ABC124",
+								"left"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RIGHT",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "ewogICJuYW1lIjogImdvbWVzIiwKICAiYWdlIjogMTgKfQ=="
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/diff/ABC124/right",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"diff",
+								"ABC124",
+								"right"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "COMPARE",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "ewogICJuYW1lIjogImZlcm5hbmRvIiwKICAiYWdlIjogMzEKfQ=="
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/diff/ABC124",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"diff",
+								"ABC124"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d9ad7a1d-2e6e-4897-8091-be37c5f83e28",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "22fcca0f-9c27-46fc-9555-a64513109a02",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "diff right extra field",
+			"item": [
+				{
+					"name": "LEFT",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "ewogICJuYW1lIjogImZlcm5hbmRvIiwKICAiYWdlIjogMzEsCiAgInNraWxsIjogImphdmEiCn0="
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/diff/ABC125/left",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"diff",
+								"ABC125",
+								"left"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RIGHT",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "ewogICJuYW1lIjogImZlcm5hbmRvIiwKICAiYWdlIjogMzEKfQ=="
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/diff/ABC125/right",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"diff",
+								"ABC125",
+								"right"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "COMPARE",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/diff/ABC125",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"diff",
+								"ABC125"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d9ad7a1d-2e6e-4897-8091-be37c5f83e28",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "22fcca0f-9c27-46fc-9555-a64513109a02",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

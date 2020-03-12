@@ -1,0 +1,1 @@
+Here is a postman collection to help with manual tests

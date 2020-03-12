@@ -98,11 +98,21 @@ public class DataObject implements Serializable {
 
         DataObject that = (DataObject) o;
 
-        return id.equals(that.id);
+        if (id != null) {
+            return id.equals(that.id);
+        }
+
+        if (that.id != null) {
+            return that.id.equals(id);
+        }
+
+        return referenceId.equals(that.referenceId);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + referenceId.hashCode();
+        return result;
     }
 }
