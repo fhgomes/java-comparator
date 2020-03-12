@@ -27,12 +27,18 @@ public class DataObjectFactory {
 
     private void fillBothDirections(List<DataObject> byReferenceId, DataComparableDTO comparable) {
         if (!CollectionUtils.isEmpty(byReferenceId)) {
-            comparable.setContentLeft(transformContentDTO(byReferenceId.get(0)));
+            byReferenceId.stream()
+                    .filter(data -> ObjectDirection.LEFT.equals(data.getDirection()))
+                    .findFirst()
+                    .ifPresent(data -> comparable.setContentLeft(transformContentDTO(data)));
+
+            byReferenceId.stream()
+                    .filter(data -> ObjectDirection.RIGHT.equals(data.getDirection()))
+                    .findFirst()
+                    .ifPresent(data -> comparable.setContentRight(transformContentDTO(data)));
+
             //here is something that i'm assuming that we can trust in the information of the saved data
             comparable.setProcessStatus(byReferenceId.get(0).getProcessStatus());
-            if(byReferenceId.size() > 1) {
-                comparable.setContentRight(transformContentDTO(byReferenceId.get(1)));
-            }
         }
     }
 

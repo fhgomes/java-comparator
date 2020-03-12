@@ -41,6 +41,7 @@ public class DataObject implements Serializable {
         this.direction = direction;
         this.rawContent = rawContent;
         this.createdDate = Calendar.getInstance();
+        this.processStatus = ProcessStatus.WAITING;
     }
 
     public String getId() {
