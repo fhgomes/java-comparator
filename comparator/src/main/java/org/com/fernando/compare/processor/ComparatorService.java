@@ -45,10 +45,6 @@ public class ComparatorService {
         }
     }
 
-    private CompareResultDTO createComparingError(ComparingException e) {
-        return new CompareResultDTO(false, e.getHttpStatus(), e.getCode(), "");
-    }
-
     private CompareResultDTO compare(DataContentDTO contentLeft,
                                      DataContentDTO contentRight) {
         boolean sameContent = contentLeft.getRawContent().equals(contentRight.getRawContent());
@@ -64,5 +60,9 @@ public class ComparatorService {
     private CompareResultDTO findDiffInsights(DataContentDTO contentLeft, DataContentDTO contentRight) {
         IFileSpecificComparator comparator = specificComparatorFactory.getComparatorFor(FileType.JSON);
         return comparator.findDiffInsights(contentLeft, contentRight);
+    }
+
+    private CompareResultDTO createComparingError(ComparingException e) {
+        return new CompareResultDTO(false, e.getHttpStatus(), e.getCode(), "");
     }
 }

@@ -1,6 +1,8 @@
 package org.com.fernando;
 
 import org.com.fernando.share.data.CompareResultDTO;
+import org.com.fernando.share.exception.InvalidResultDTO;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -34,7 +36,7 @@ class ComparingResourceWithSpringTest extends BaseRestResourceWithSpringTest {
             insertData(referenceID, API_PATH_LEFT, getJsonContentEncoded("json1"));
             insertData(referenceID, API_PATH_RIGHT, getJsonContentEncoded("json1"));
 
-            ResponseEntity<CompareResultDTO> response = callCompare(referenceID);
+            ResponseEntity<CompareResultDTO> response = callCompare(referenceID, CompareResultDTO.class);
             assertAll(
                     () -> assertEquals(true, response.getBody().isValidEquals()),
                     () -> assertEquals("The contents are the same", response.getBody().getMessage()),
@@ -53,7 +55,7 @@ class ComparingResourceWithSpringTest extends BaseRestResourceWithSpringTest {
             insertData(referenceID, API_PATH_LEFT, getJsonContentEncoded("json1"));
             insertData(referenceID, API_PATH_RIGHT, getJsonContentEncoded("json2_different_value"));
 
-            ResponseEntity<CompareResultDTO> response = callCompare(referenceID);
+            ResponseEntity<CompareResultDTO> response = callCompare(referenceID, CompareResultDTO.class);
             assertAll(
                     () -> assertEquals(false, response.getBody().isValidEquals()),
                     () -> assertEquals("There are some fields not equal", response.getBody().getMessage()),
@@ -70,7 +72,7 @@ class ComparingResourceWithSpringTest extends BaseRestResourceWithSpringTest {
             insertData(referenceID, API_PATH_LEFT, getJsonContentEncoded("json1"));
             insertData(referenceID, API_PATH_RIGHT, getJsonContentEncoded("json3_different_structure"));
 
-            ResponseEntity<CompareResultDTO> response = callCompare(referenceID);
+            ResponseEntity<CompareResultDTO> response = callCompare(referenceID, CompareResultDTO.class);
             assertAll(
                     () -> assertEquals(false, response.getBody().isValidEquals()),
                     () -> assertEquals("The size of elements in JSON content are not the same. Left(2) - Right(3)", response.getBody().getMessage()),
@@ -79,11 +81,29 @@ class ComparingResourceWithSpringTest extends BaseRestResourceWithSpringTest {
         }
     }
 
-    private ResponseEntity<CompareResultDTO> callCompare(long referenceID) {
+    @Nested
+    class TestCompareDifferentNotReady {
+        @Disabled //problem with ExceptionHandler
+        @Test
+        @DisplayName("Should insert only left and compare should return error")
+        void testCompareOnlyLeft() throws IOException {
+            long referenceID = Calendar.getInstance().getTimeInMillis();
+
+            insertData(referenceID, API_PATH_LEFT, getJsonContentEncoded("json1"));
+
+            ResponseEntity<InvalidResultDTO> response = callCompare(referenceID, InvalidResultDTO.class);
+            assertAll(
+                    () -> assertEquals("Left content is not posted yet", response.getBody().getMessage()),
+                    () -> assertEquals(409, response.getStatusCode().value())
+            );
+        }
+    }
+
+    private ResponseEntity callCompare(long referenceID, Class responseType) {
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
         String path = String.format(API_PATH, referenceID);
         return restTemplate.exchange(
-                createURLWithPort(path), HttpMethod.GET, entity, CompareResultDTO.class);
+                createURLWithPort(path), HttpMethod.GET, entity, responseType);
     }
 
     private void insertData(long referenceID, String apiPathLeft, String enconded) {

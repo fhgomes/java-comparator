@@ -7,10 +7,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class InvalidResultDTO {
 
   @JsonProperty("code")
-  private final String code;
+  private String code;
 
   @JsonProperty("message")
-  private final String message;
+  private String message;
+
+  public InvalidResultDTO() {
+    //to serialization
+  }
 
   public InvalidResultDTO(String code, String message) {
     this.code = code;
