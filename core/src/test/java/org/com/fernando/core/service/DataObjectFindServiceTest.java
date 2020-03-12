@@ -2,6 +2,7 @@ package org.com.fernando.core.service;
 
 import org.com.fernando.core.domain.DataObject;
 import org.com.fernando.core.repository.DataObjectRepository;
+import org.com.fernando.core.repository.DataObjectResultRepository;
 import org.com.fernando.share.ObjectDirection;
 import org.com.fernando.share.data.DataComparableDTO;
 import org.junit.jupiter.api.DisplayName;
@@ -24,6 +25,9 @@ class DataObjectFindServiceTest {
 
     @Mock
     DataObjectRepository dataObjectRepository;
+
+    @Mock
+    DataObjectResultRepository dataObjectResultRepository;
 
     @Mock
     DataObjectFactory dataObjectFactory;

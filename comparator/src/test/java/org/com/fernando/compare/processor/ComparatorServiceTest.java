@@ -18,8 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ComparatorServiceTest {
@@ -53,6 +52,7 @@ class ComparatorServiceTest {
     @Test
     @DisplayName("Should compare and result equals")
     void compare() {
+        when(dataObjectService.findCompareResult("123")).thenReturn(null);
         when(dataObjectService.findComparableByReference("123")).thenReturn(dataComparableMock);
         when(dataComparableMock.getContentLeft()).thenReturn(dataContentLeftMock);
         when(dataComparableMock.getContentRight()).thenReturn(dataContentRightMock);
@@ -68,8 +68,21 @@ class ComparatorServiceTest {
     }
 
     @Test
+    @DisplayName("Should get result equals from database")
+    void compareFromDatabase() {
+        when(dataObjectService.findCompareResult("123")).thenReturn(resultMock);
+
+        CompareResultDTO result = comparatorService.compare("123");
+        assertAll(
+                () -> assertEquals(resultMock, result),
+                () -> verify(dataObjectService, never()).findComparableByReference(any())
+        );
+    }
+
+    @Test
     @DisplayName("Should compare and result equals")
     void compareWhenDifferent() {
+        when(dataObjectService.findCompareResult("123")).thenReturn(null);
         when(specificComparatorFactory.getComparatorFor(FileType.JSON)).thenReturn(fakeJsonComparatorMock);
         when(dataObjectService.findComparableByReference("123")).thenReturn(dataComparableMock);
         when(dataComparableMock.getContentLeft()).thenReturn(dataContentLeftMock);
@@ -92,6 +105,7 @@ class ComparatorServiceTest {
     @Test
     @DisplayName("Should throw error when invalid on validator")
     void compareWhenValidatorThrowEx() {
+        when(dataObjectService.findCompareResult("123")).thenReturn(null);
         when(dataObjectService.findComparableByReference("123")).thenReturn(dataComparableMock);
         doThrow(new ComparingException("invalid"))
                 .when(dataComparableObjectValidator).validateDataToCompare(dataComparableMock);

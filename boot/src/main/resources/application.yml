@@ -48,5 +48,4 @@ management:
 # queues
 # ===================================================================
 queue:
-  decode: queue.decode
   compare: queue.compare
