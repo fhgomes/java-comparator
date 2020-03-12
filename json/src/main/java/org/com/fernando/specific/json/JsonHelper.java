@@ -38,6 +38,12 @@ public class JsonHelper {
     }
 
     private String diffToString(JsonNode diff) {
-        return diff.get("op").asText() + " - " + diff.get("path").asText();
+        StringBuilder difference = new StringBuilder();
+        difference.append("Diff: ");
+        difference.append(diff.get("op").asText());
+        difference.append(" - ");
+        difference.append("Path: ");
+        difference.append(diff.get("path").asText());
+        return difference.toString();
     }
 }
