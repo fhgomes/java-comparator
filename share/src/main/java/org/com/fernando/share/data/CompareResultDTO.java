@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CompareResultDTO {
@@ -75,7 +76,7 @@ public class CompareResultDTO {
     if (status != resultDTO.status) {
       return false;
     }
-    return code != null ? code.equals(resultDTO.code) : resultDTO.code == null;
+    return Objects.equals(code, resultDTO.code);
   }
 
   @Override

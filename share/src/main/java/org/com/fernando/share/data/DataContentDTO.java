@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.com.fernando.share.ObjectDirection;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DataContentDTO {
@@ -74,7 +75,7 @@ public class DataContentDTO {
 
         DataContentDTO that = (DataContentDTO) o;
 
-        return id != null ? id.equals(that.id) : that.id == null;
+        return Objects.equals(id, that.id);
     }
 
     @Override

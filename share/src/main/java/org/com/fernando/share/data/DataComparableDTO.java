@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.com.fernando.share.ProcessStatus;
 
+import java.util.Objects;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DataComparableDTO {
 
@@ -53,14 +55,16 @@ public class DataComparableDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o) {
+            return true;
+        }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
 
         DataComparableDTO that = (DataComparableDTO) o;
 
-        return referenceId != null ? referenceId.equals(that.referenceId) : that.referenceId == null;
+        return Objects.equals(referenceId, that.referenceId);
     }
 
     @Override

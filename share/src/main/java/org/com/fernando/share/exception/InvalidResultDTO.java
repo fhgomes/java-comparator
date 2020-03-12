@@ -3,6 +3,8 @@ package org.com.fernando.share.exception;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InvalidResultDTO {
 
@@ -40,7 +42,7 @@ public class InvalidResultDTO {
 
     InvalidResultDTO that = (InvalidResultDTO) o;
 
-    return code != null ? code.equals(that.code) : that.code == null;
+    return Objects.equals(code, that.code);
   }
 
   @Override
