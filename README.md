@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/fhgomes/java-comparator.svg?branch=master)](https://travis-ci.com/fhgomes/java-comparator)
+
 # java-comparator
 
 Application to compare two contents.

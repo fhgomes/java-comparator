@@ -49,7 +49,7 @@ class DataComparableObjectValidatorTest {
     @DisplayName("Should throw error when content left is empty")
     void validateDataToCompareLeftEmpty() {
         DataComparableDTO contents = new DataComparableDTO();
-        contents.setContentLeft(createContent(null));
+        contents.setContentLeft(createContent(""));
         contents.setContentRight(createContent("raw"));
         ComparingException comparingException = assertThrows(ComparingException.class,
                 () -> validator.validateDataToCompare(contents));
@@ -60,7 +60,7 @@ class DataComparableObjectValidatorTest {
     @DisplayName("Should throw error when content right is empty")
     void validateDataToCompareRightEmpty() {
         DataComparableDTO contents = new DataComparableDTO();
-        contents.setContentRight(createContent(null));
+        contents.setContentRight(createContent(""));
         contents.setContentLeft(createContent("raw"));
         ComparingException comparingException = assertThrows(ComparingException.class,
                 () -> validator.validateDataToCompare(contents));
@@ -78,7 +78,7 @@ class DataComparableObjectValidatorTest {
 
     private DataContentDTO createContent(String raw) {
         DataContentDTO contentDTO = new DataContentDTO();
-        contentDTO.setRawContent(raw);
+        contentDTO.setRawContent(raw.getBytes());
         return contentDTO;
     }
 }

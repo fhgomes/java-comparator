@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class DataObjectFactory {
 
-    public DataObject createNewObject(String refId, ObjectDirection direction, String rawContent) {
+    public DataObject createNewObject(String refId, ObjectDirection direction, byte[] rawContent) {
         return new DataObject(refId, direction, rawContent);
     }
 

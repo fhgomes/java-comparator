@@ -7,9 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.io.IOException;
@@ -120,7 +118,9 @@ class ComparingResourceWithSpringTest extends BaseRestResourceWithSpringTest {
     }
 
     private void insertData(long referenceID, String apiPathLeft, String enconded) {
-        HttpEntity<String> entityLeft = new HttpEntity<>(enconded, headers);
+        HttpHeaders headersContent = new HttpHeaders();
+        headersContent.add("Content-Type", MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        HttpEntity<String> entityLeft = new HttpEntity(enconded.getBytes(), headersContent);
         String pathLeft = String.format(apiPathLeft, referenceID);
         restTemplate.exchange(
                 createURLWithPort(pathLeft), HttpMethod.POST, entityLeft, String.class);

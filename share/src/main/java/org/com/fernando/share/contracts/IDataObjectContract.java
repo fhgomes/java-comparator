@@ -3,8 +3,8 @@ package org.com.fernando.share.contracts;
 import org.com.fernando.share.data.CompareResultDTO;
 
 public interface IDataObjectContract extends IDataObjectFindableContract {
-    String saveDataLeft(String refId, String rawContent);
-    String saveDataRight(String refId, String rawContent);
+    String saveDataLeft(String refId, byte[] rawContent);
+    String saveDataRight(String refId, byte[] rawContent);
 
     void startProcessing(String refId);
     void stopProcessing(String refId);

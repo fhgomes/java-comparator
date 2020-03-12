@@ -41,14 +41,14 @@ class DataObjectValidatorTest {
     @Test
     @DisplayName("Should validate valid content")
     void validateContent() {
-        assertDoesNotThrow(() -> dataObjectValidator.validateContent("contentLongValid"));
+        assertDoesNotThrow(() -> dataObjectValidator.validateContent("contentLongValid".getBytes()));
     }
 
     @Test
     @DisplayName("Should throw ex when empty")
     void assertThrowsWhenEmpty() {
         InvalidDataException ex = assertThrows(InvalidDataException.class,
-                () -> dataObjectValidator.validateContent("")
+                () -> dataObjectValidator.validateContent("".getBytes())
         );
         assertEquals("content.invalid.empty", ex.getCode());
 
@@ -58,7 +58,7 @@ class DataObjectValidatorTest {
     @DisplayName("Should throw ex when size less than min")
     void assertThrowsWhenWithLessThanMin() {
         InvalidDataException ex = assertThrows(InvalidDataException.class,
-                () -> dataObjectValidator.validateContent("123")
+                () -> dataObjectValidator.validateContent("123".getBytes())
         );
         assertEquals("content.invalid.min_size", ex.getCode());
     }

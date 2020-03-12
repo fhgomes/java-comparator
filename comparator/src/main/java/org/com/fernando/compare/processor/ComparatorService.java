@@ -12,7 +12,10 @@ import org.com.fernando.util.MessagesWrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
+
 import static org.com.fernando.compare.common.ComparingMsgConstants.DIFF_EQUALS;
+import static org.com.fernando.util.encoding.BytesToStringUtil.bytesToString;
 
 @Service
 public class ComparatorService {
@@ -65,7 +68,9 @@ public class ComparatorService {
 
     private CompareResultDTO compare(DataContentDTO contentLeft,
                                      DataContentDTO contentRight) {
-        boolean sameContent = contentLeft.getRawContent().equals(contentRight.getRawContent());
+        boolean sameContent = Objects.equals(
+                bytesToString(contentLeft.getRawContent()),
+                bytesToString(contentRight.getRawContent()));
 
         if (sameContent) {
             String message = messagesWrapper.get(DIFF_EQUALS);

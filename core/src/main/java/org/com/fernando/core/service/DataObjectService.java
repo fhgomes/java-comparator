@@ -35,13 +35,13 @@ public class DataObjectService extends DataObjectFindService implements IDataObj
 
     @Override
     @Transactional
-    public String saveDataLeft(String refId, String rawContent) {
+    public String saveDataLeft(String refId, byte[] rawContent) {
         return doSaveData(refId, rawContent, ObjectDirection.LEFT);
     }
 
     @Override
     @Transactional
-    public String saveDataRight(String refId, String rawContent) {
+    public String saveDataRight(String refId, byte[] rawContent) {
         return doSaveData(refId, rawContent, ObjectDirection.RIGHT);
     }
 
@@ -85,7 +85,7 @@ public class DataObjectService extends DataObjectFindService implements IDataObj
         return super.findComparableByReference(refId);
     }
 
-    private String doSaveData(String refId, String rawContent, ObjectDirection direction) {
+    private String doSaveData(String refId, byte[] rawContent, ObjectDirection direction) {
         dataObjectValidator.validateContent(rawContent);
         dataObjectValidator.validateAlreadyExist(refId, direction);
         DataObject saved = dataObjectRepository.save(dataObjectFactory.createNewObject(refId, direction, rawContent));

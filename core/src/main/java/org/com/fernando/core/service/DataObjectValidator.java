@@ -6,7 +6,12 @@ import org.com.fernando.share.exception.InvalidDataException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.nio.charset.StandardCharsets;
+
+import static java.util.Objects.isNull;
 import static org.com.fernando.core.common.ErrorMsgConstants.*;
+import static org.com.fernando.util.encoding.BytesToStringUtil.bytesToString;
+import static org.springframework.util.StringUtils.*;
 
 @Service
 public class DataObjectValidator {
@@ -30,12 +35,12 @@ public class DataObjectValidator {
         }
     }
 
-    public void validateContent(String rawContent) {
+    public void validateContent(byte[] rawContent) {
         //i'm assuming that we don't allow to save empty or invalid data
-        if (StringUtils.isEmpty(rawContent)) {
+        if (isNull(rawContent) || isEmpty(bytesToString(rawContent))) {
            throw new InvalidDataException(CONTENT_INVALID_EMPTY);
         }
-        if (rawContent.length() < MIN_SIZE_ENCODED) {
+        if (bytesToString(rawContent).length() < MIN_SIZE_ENCODED) {
             throw new InvalidDataException(CONTENT_INVALID_MIN_SIZE);
         }
 

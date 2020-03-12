@@ -5,9 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.io.IOException;
@@ -143,7 +141,9 @@ class StoreDataResourceWithSpringTest extends BaseRestResourceWithSpringTest {
     }
 
     private ResponseEntity<String> insertData(long referenceID, String apiPath, String body) {
-        HttpEntity<String> entity = new HttpEntity<>(body, headers);
+        HttpHeaders headersContent = new HttpHeaders();
+        headersContent.add("Content-Type", MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        HttpEntity<String> entity = new HttpEntity<>(body, headersContent);
         String path = format(apiPath, referenceID);
         ResponseEntity<String> exchange = restTemplate.exchange(
                 createURLWithPort(path), HttpMethod.POST, entity, String.class);
@@ -151,7 +151,9 @@ class StoreDataResourceWithSpringTest extends BaseRestResourceWithSpringTest {
     }
 
     private ResponseEntity<InvalidResultDTO> insertDataInvalid(long referenceID, String apiPath, String body) {
-        HttpEntity<String> entity = new HttpEntity<>(body, headers);
+        HttpHeaders headersContent = new HttpHeaders();
+        headersContent.add("Content-Type", MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        HttpEntity<String> entity = new HttpEntity(body.getBytes(), headersContent);
         String path = format(apiPath, referenceID);
         ResponseEntity<InvalidResultDTO> exchange = restTemplate.exchange(
                 createURLWithPort(path), HttpMethod.POST, entity, InvalidResultDTO.class);

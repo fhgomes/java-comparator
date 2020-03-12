@@ -15,18 +15,27 @@
 							"type": "noauth"
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/octet-stream",
+								"type": "text"
+							}
+						],
 						"body": {
-							"mode": "raw",
-							"raw": "ewogICJuYW1lIjogImZlcm5hbmRvIiwKICAiYWdlIjogMzEKfQ==",
+							"mode": "file",
+							"file": {
+								"src": "/C:/Users/ferna/OneDrive/Área de Trabalho/json1.txt"
+							},
 							"options": {
 								"raw": {
-									"language": "json"
+									"language": "text"
 								}
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/diff/ABC123/left",
+							"raw": "http://localhost:8080/api/v1/diff/ABC1297/left",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -36,7 +45,7 @@
 								"api",
 								"v1",
 								"diff",
-								"ABC123",
+								"ABC1297",
 								"left"
 							]
 						}
@@ -62,13 +71,21 @@
 							]
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/octet-stream",
+								"type": "text"
+							}
+						],
 						"body": {
-							"mode": "raw",
-							"raw": "ewogICJuYW1lIjogImZlcm5hbmRvIiwKICAiYWdlIjogMzEKfQ=="
+							"mode": "file",
+							"file": {
+								"src": "/C:/Users/ferna/OneDrive/Área de Trabalho/json1.txt"
+							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/diff/ABC123/right",
+							"raw": "http://localhost:8080/api/v1/diff/ABC1297/right",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -78,7 +95,7 @@
 								"api",
 								"v1",
 								"diff",
-								"ABC123",
+								"ABC1297",
 								"right"
 							]
 						}
@@ -158,13 +175,15 @@
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"value": "text/plain",
+								"value": "application/octet-stream",
 								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "ewogICJuYW1lIjogImZlcm5hbmRvIiwKICAiYWdlIjogMzEKfQ==",
+							"mode": "file",
+							"file": {
+								"src": "/C:/Users/ferna/OneDrive/Área de Trabalho/json1.txt"
+							},
 							"options": {
 								"raw": {
 									"language": "text"
@@ -208,10 +227,18 @@
 							]
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/octet-stream",
+								"type": "text"
+							}
+						],
 						"body": {
-							"mode": "raw",
-							"raw": "ewogICJuYW1lIjogImdvbWVzIiwKICAiYWdlIjogMTgKfQ=="
+							"mode": "file",
+							"file": {
+								"src": "/C:/Users/ferna/OneDrive/Área de Trabalho/json2_different_value.txt"
+							}
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/v1/diff/ABC124/right",
@@ -322,10 +349,18 @@
 							]
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/octet-stream",
+								"type": "text"
+							}
+						],
 						"body": {
-							"mode": "raw",
-							"raw": "ewogICJuYW1lIjogImZlcm5hbmRvIiwKICAiYWdlIjogMzEsCiAgInNraWxsIjogImphdmEiCn0="
+							"mode": "file",
+							"file": {
+								"src": "/C:/Users/ferna/OneDrive/Área de Trabalho/json3_different_structure.txt"
+							}
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/v1/diff/ABC125/left",
@@ -352,10 +387,18 @@
 							"type": "noauth"
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/octet-stream",
+								"type": "text"
+							}
+						],
 						"body": {
-							"mode": "raw",
-							"raw": "ewogICJuYW1lIjogImZlcm5hbmRvIiwKICAiYWdlIjogMzEKfQ=="
+							"mode": "file",
+							"file": {
+								"src": "/C:/Users/ferna/OneDrive/Área de Trabalho/json1.txt"
+							}
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/v1/diff/ABC125/right",
