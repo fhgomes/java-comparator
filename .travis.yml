@@ -10,4 +10,4 @@ jdk:
 before_install:
   - chmod +x mvnw
 
-script: "mvnw clean install -Ptest_with_integration"
+script: "./mvnw clean install -Ptest_with_integration"
