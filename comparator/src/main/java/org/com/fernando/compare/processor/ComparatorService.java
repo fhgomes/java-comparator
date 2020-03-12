@@ -63,6 +63,6 @@ public class ComparatorService {
     }
 
     private CompareResultDTO createComparingError(ComparingException e) {
-        return new CompareResultDTO(false, e.getHttpStatus(), e.getCode(), "");
+        return new CompareResultDTO(false, e.getHttpStatus(), e.getCode(), messagesWrapper.get(e.getCode()));
     }
 }

@@ -83,7 +83,6 @@ class ComparingResourceWithSpringTest extends BaseRestResourceWithSpringTest {
 
     @Nested
     class TestCompareDifferentNotReady {
-        @Disabled //problem with ExceptionHandler
         @Test
         @DisplayName("Should insert only left and compare should return error")
         void testCompareOnlyLeft() throws IOException {
@@ -91,7 +90,21 @@ class ComparingResourceWithSpringTest extends BaseRestResourceWithSpringTest {
 
             insertData(referenceID, API_PATH_LEFT, getJsonContentEncoded("json1"));
 
-            ResponseEntity<InvalidResultDTO> response = callCompare(referenceID, InvalidResultDTO.class);
+            ResponseEntity<CompareResultDTO> response = callCompare(referenceID, CompareResultDTO.class);
+            assertAll(
+                    () -> assertEquals("Right content is not posted yet", response.getBody().getMessage()),
+                    () -> assertEquals(409, response.getStatusCode().value())
+            );
+        }
+
+        @Test
+        @DisplayName("Should insert only right and compare should return error")
+        void testCompareOnlyRight() throws IOException {
+            long referenceID = Calendar.getInstance().getTimeInMillis();
+
+            insertData(referenceID, API_PATH_RIGHT, getJsonContentEncoded("json1"));
+
+            ResponseEntity<CompareResultDTO> response = callCompare(referenceID, CompareResultDTO.class);
             assertAll(
                     () -> assertEquals("Left content is not posted yet", response.getBody().getMessage()),
                     () -> assertEquals(409, response.getStatusCode().value())

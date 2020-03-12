@@ -18,7 +18,7 @@ public class StoreDataResource {
     //here i'm using String to make it easier to develop and test
     @PostMapping(value = "/{id}/left")
     public ResponseEntity<String> storeLeftData(@PathVariable("id") String refId,
-                                                @RequestBody String content) {
+                                                @RequestBody(required = false) String content) {
         String savedId = dataObjectService.saveDataLeft(refId, content);
         return ResponseEntity.accepted().body(savedId);
     }
@@ -26,7 +26,7 @@ public class StoreDataResource {
     //TODO change to bytes consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE
     @PostMapping(value = "/{id}/right")
     public ResponseEntity<String> storeRightData(@PathVariable("id") String refId,
-                                                 @RequestBody String content) {
+                                                 @RequestBody(required = false) String content) {
         String savedId = dataObjectService.saveDataRight(refId, content);
         return ResponseEntity.accepted().body(savedId);
     }
