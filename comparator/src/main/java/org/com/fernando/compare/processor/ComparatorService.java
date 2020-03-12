@@ -13,7 +13,6 @@ import org.com.fernando.util.MessagesWrapper;
 import org.springframework.stereotype.Service;
 
 import static org.com.fernando.compare.common.ComparingMsgConstants.DIFF_EQUALS;
-import static org.com.fernando.compare.common.ComparingMsgConstants.DIFF_SIZE_NOT_EQUALS;
 
 @Service
 public class ComparatorService {
@@ -52,15 +51,6 @@ public class ComparatorService {
 
     private CompareResultDTO compare(DataContentDTO contentLeft,
                                      DataContentDTO contentRight) {
-        boolean equalSize = contentLeft.getRawContent().length() == contentRight.getRawContent().length();
-        if (true) {
-            return compareAllContent(contentLeft, contentRight);
-        }
-        String message = messagesWrapper.get(DIFF_SIZE_NOT_EQUALS);
-        return new CompareResultDTO(equalSize, 409, DIFF_SIZE_NOT_EQUALS, message);
-    }
-
-    private CompareResultDTO compareAllContent(DataContentDTO contentLeft, DataContentDTO contentRight) {
         boolean sameContent = contentLeft.getRawContent().equals(contentRight.getRawContent());
 
         if (sameContent) {
