@@ -1,0 +1,1 @@
+This module is responsible for the comparator job and comparator rules

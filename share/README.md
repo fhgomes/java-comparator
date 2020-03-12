@@ -1,0 +1,1 @@
+This module is responsible for having the contracts between modules and some common things 
