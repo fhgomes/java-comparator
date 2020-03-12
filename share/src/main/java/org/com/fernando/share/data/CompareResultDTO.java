@@ -60,4 +60,28 @@ public class CompareResultDTO {
   public void addDifference(String difference) {
     this.differences.add(difference);
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    CompareResultDTO resultDTO = (CompareResultDTO) o;
+
+    if (status != resultDTO.status) {
+      return false;
+    }
+    return code != null ? code.equals(resultDTO.code) : resultDTO.code == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = status;
+    result = 31 * result + (code != null ? code.hashCode() : 0);
+    return result;
+  }
 }

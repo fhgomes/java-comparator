@@ -50,4 +50,21 @@ public class DataComparableDTO {
     public void setContentRight(DataContentDTO contentRight) {
         this.contentRight = contentRight;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        DataComparableDTO that = (DataComparableDTO) o;
+
+        return referenceId != null ? referenceId.equals(that.referenceId) : that.referenceId == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return referenceId != null ? referenceId.hashCode() : 0;
+    }
 }
