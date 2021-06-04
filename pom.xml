@@ -33,7 +33,7 @@
 
         <jackson.version>2.10.2</jackson.version>
         <slf4j-api.version>1.7.30</slf4j-api.version>
-        <httpclient.version>4.5.8</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <springfox-swagger2.version>2.7.0</springfox-swagger2.version>
 
         <mockito-core.version>3.1.0</mockito-core.version>
